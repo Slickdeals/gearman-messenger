@@ -3,6 +3,8 @@ Gearman Messenger
 
 Provides Gearman integration for Symfony Messenger.
 
+[![Build gearman-messenger](https://github.com/Slickdeals/gearman-messenger/actions/workflows/php.yml/badge.svg)](https://github.com/Slickdeals/gearman-messenger/actions/workflows/php.yml)
+
 Installation
 ------------
 
