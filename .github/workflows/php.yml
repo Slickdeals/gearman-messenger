@@ -1,0 +1,42 @@
+name: Build gearman-messenger
+on: [push, pull_request]
+jobs:
+  build:
+    name: gearman-messenger (PHP ${{ matrix.php }})
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.2', '7.3', '7.4', '8.0']
+
+    services:
+      gearmand:
+        image: artefactual/gearmand:1.1.15-alpine
+        ports:
+          - 4730:4730
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: "none"
+          extensions: "gearman"
+          ini-values: "memory_limit=-1"
+          php-version: "${{ matrix.php }}"
+          tools: pecl
+
+      - name: Install dependencies
+        run: |
+          composer install --prefer-dist --no-progress  --no-interaction
+
+      - name: php-cs-fixer
+        run: vendor/bin/php-cs-fixer fix --dry-run
+
+      - name: psalm
+        run: vendor/bin/psalm
+
+      - name: phpunit
+        run: vendor/bin/phpunit
