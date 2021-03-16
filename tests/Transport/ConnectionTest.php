@@ -47,14 +47,14 @@ class ConnectionTest extends TestCase
 
     public function testEmptyMessage()
     {
-        $connection = Connection::fromDsn('gearman://gearmand');
+        $connection = Connection::fromDsn('gearman://');
 
         $this->assertNull($connection->get());
     }
 
     public function testAddGet()
     {
-        $connection = Connection::fromDsn('gearman://gearmand');
+        $connection = Connection::fromDsn('gearman://');
 
         $connection->send('default', 'junk', []);
 
@@ -71,7 +71,8 @@ class ConnectionTest extends TestCase
 
     public function testOneServerConnects()
     {
-        $connection = new Connection(['hosts' => ['gearmand:4730', 'localhost:4730'], 'timeout' => 100, 'job_names' => ['default']]);
+        // 4731 port doesn't exist
+        $connection = new Connection(['hosts' => ['localhost:4731', 'localhost:4730'], 'timeout' => 100, 'job_names' => ['default']]);
 
         $this->assertNull($connection->get());
     }
