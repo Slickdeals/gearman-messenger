@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.3', '7.4', '8.0']
+        php: ['7.4', '8.0']
 
     services:
       gearmand:
@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer install --prefer-dist --no-progress  --no-interaction
+          composer install --prefer-dist --no-progress --no-interaction
 
       - name: php-cs-fixer
         run: vendor/bin/php-cs-fixer fix --dry-run
