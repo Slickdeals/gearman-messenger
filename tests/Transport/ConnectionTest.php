@@ -7,7 +7,6 @@ use SD\Gearman\Transport\Connection;
 
 /**
  * @requires extension gearman >= 2.0
- * @group integration
  */
 class ConnectionTest extends TestCase
 {
@@ -45,6 +44,9 @@ class ConnectionTest extends TestCase
         Connection::fromDsn($dsn);
     }
 
+    /**
+     * @group integration
+     */
     public function testEmptyMessage()
     {
         $connection = Connection::fromDsn('gearman://');
@@ -52,6 +54,9 @@ class ConnectionTest extends TestCase
         $this->assertNull($connection->get());
     }
 
+    /**
+     * @group integration
+     */
     public function testAddGet()
     {
         $connection = Connection::fromDsn('gearman://');
@@ -61,6 +66,9 @@ class ConnectionTest extends TestCase
         $this->assertEquals(['headers' => [], 'body' => 'junk'], $connection->get());
     }
 
+    /**
+     * @group integration
+     */
     public function testNoSuccessfulServers()
     {
         $this->expectException(\RuntimeException::class);
@@ -69,11 +77,22 @@ class ConnectionTest extends TestCase
         $connection->get();
     }
 
+    /**
+     * @group integration
+     */
     public function testOneServerConnects()
     {
         // 4731 port doesn't exist
         $connection = new Connection(['hosts' => ['localhost:4731', 'localhost:4730'], 'timeout' => 100, 'job_names' => ['default']]);
 
         $this->assertNull($connection->get());
+    }
+
+    public function testHostsInOptions()
+    {
+        $connection = Connection::fromDsn('gearman://', ['hosts' => ['gearman1:4730', 'gearman1:4730']]);
+        $expectedConnection = new Connection(['hosts' => ['gearman1:4730', 'gearman1:4730'], 'timeout' => 100, 'job_names' => ['default']]);
+
+        $this->assertEquals($expectedConnection, $connection);
     }
 }

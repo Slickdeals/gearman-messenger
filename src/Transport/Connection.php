@@ -42,7 +42,7 @@ class Connection
      *   * job_names: Array of gearman job names to consume
      *   * timeout: The amount of time in milliseconds before timing out
      */
-    public static function fromDsn(string $dsn): self
+    public static function fromDsn(string $dsn, array $options = []): self
     {
         if (false === $parsedUrl = parse_url($dsn)) {
             if (!\in_array($dsn, ['gearman://'])) {
@@ -63,7 +63,7 @@ class Connection
             'job_names' => [
                 'default',
             ],
-        ], $parsedQuery);
+        ], $options, $parsedQuery);
 
         self::validateOptions($gearmanOptions);
 

@@ -29,4 +29,18 @@ class GearmanTransportFactoryTest extends TestCase
 
         $this->assertEquals($expectedTransport, $factory->createTransport($dsn, [], $serializer));
     }
+
+    public function testCreateTransportWithOptions()
+    {
+        $factory = new GearmanTransportFactory();
+        $dsn = 'gearman://';
+        $options = [
+            'hosts' => ['gearman1:4730', 'gearman2:4730'],
+        ];
+
+        $serializer = $this->createMock(SerializerInterface::class);
+        $expectedTransport = new GearmanTransport(new Connection(array_merge(['timeout' => 100, 'job_names' => ['default']], $options)), $serializer);
+
+        $this->assertEquals($expectedTransport, $factory->createTransport($dsn, $options, $serializer));
+    }
 }

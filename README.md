@@ -47,3 +47,21 @@ framework:
 
 This allows you to have a single transport will support all of your messages, but it does not prevent you from setting up
 multiple transports that each handle their own set of messages.
+
+### Specify Multiple Hosts
+
+You can also pass an array of host:port strings as an option to connect to multiple Gearman Job Servers. Keep the DSN
+simple as the DSN overrides options.
+
+```yaml
+framework:
+    messenger:
+        transports:
+            gearman:
+                dsn: "gearman://"
+                options:
+                    hosts:
+                        - gearman1:4730
+                        - gearman2:4730
+                        # ...
+```

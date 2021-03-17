@@ -10,7 +10,7 @@ class GearmanTransportFactory implements TransportFactoryInterface
 {
     public function createTransport(string $dsn, array $options, SerializerInterface $serializer): TransportInterface
     {
-        return new GearmanTransport(Connection::fromDsn($dsn), $serializer);
+        return new GearmanTransport(Connection::fromDsn($dsn, $options), $serializer);
     }
 
     public function supports(string $dsn, array $options): bool
