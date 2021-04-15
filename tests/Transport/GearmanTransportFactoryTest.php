@@ -8,6 +8,9 @@ use SD\Gearman\Transport\GearmanTransport;
 use SD\Gearman\Transport\GearmanTransportFactory;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
+/**
+ * @requires extension gearman >= 2.0
+ */
 class GearmanTransportFactoryTest extends TestCase
 {
     public function testSupportsOnlyGearmanTransports()
@@ -27,7 +30,8 @@ class GearmanTransportFactoryTest extends TestCase
         $serializer = $this->createMock(SerializerInterface::class);
         $expectedTransport = new GearmanTransport(Connection::fromDsn($dsn), $serializer);
 
-        $this->assertEquals($expectedTransport, $factory->createTransport($dsn, [], $serializer));
+        // transport_name is added by Messenger by default
+        $this->assertEquals($expectedTransport, $factory->createTransport($dsn, ['transport_name' => 'gearman'], $serializer));
     }
 
     public function testCreateTransportWithOptions()

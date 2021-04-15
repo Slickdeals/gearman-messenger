@@ -7,6 +7,7 @@ use SD\Gearman\Transport\Connection;
 
 /**
  * @requires extension gearman >= 2.0
+ * @group integration
  */
 class ConnectionTest extends TestCase
 {
