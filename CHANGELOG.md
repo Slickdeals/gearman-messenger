@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.0.1](https://github.com/Slickdeals/gearman-messenger/compare/v1.0.0...v1.0.1) (2021-04-15)
+
+
+### Bug Fixes
+
+* Unset transport_name in options from Messenger [#1](https://github.com/Slickdeals/gearman-messenger/issues/1) ([f23fb9](https://github.com/Slickdeals/gearman-messenger/commit/f23fb9acfb4fe6673f80d983ad7d85de83e5da0b))
+
+---
+
 ## [1.0.0](https://github.com/Slickdeals/gearman-messenger/compare/79684c3d5c54ff84020eb05f294b9324ae0c5d02...v1.0.0) (2021-04-14)
 
 ### Feature
