@@ -14,3 +14,6 @@ RUN apt-get update; \
     ; \
     rm -rf /var/lib/apt/lists/*; \
     apt-get clean
+
+RUN pecl install xdebug; \
+    docker-php-ext-enable xdebug

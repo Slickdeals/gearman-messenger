@@ -1,0 +1,12 @@
+version: "3.4"
+
+services:
+  php:
+    build:
+      context: .
+    volumes:
+      - .:/app
+    depends_on:
+      - gearman
+  gearman:
+    image: artefactual/gearmand:1.1.15-alpine
