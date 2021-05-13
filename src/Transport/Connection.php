@@ -115,9 +115,10 @@ class Connection
     {
         $client = new GearmanClient();
 
-        foreach ($this->options['hosts'] as $s) {
-            $client->addServers($s);
-        }
+        // Only connect to the first server on the list
+        // We'll assume the list is already randomized if a list is being sent
+        $server = reset($this->options['hosts']);
+        $client->addServers($server);
 
         return $this->client = $client;
     }
