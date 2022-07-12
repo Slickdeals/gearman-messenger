@@ -41,7 +41,7 @@ class GearmanTransportTest extends TestCase
 
         $envelope = new Envelope(new DummyMessage('dummy'), [new GearmanStamp('my-function')]);
 
-        $serializer->method('encode')->with($envelope->withoutStampsOfType(GearmanStamp::class))->willReturn(['body' => 'serialized-body']);
+        $serializer->method('encode')->with($envelope)->willReturn(['body' => 'serialized-body']);
         $connection->method('send')->with('my-function', 'serialized-body');
 
         $returnedEnvelope = $transport->send($envelope);

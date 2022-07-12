@@ -27,8 +27,7 @@ class GearmanSender implements SenderInterface
             throw new TransportException('GearmanStamp required on envelope.');
         }
 
-        // Remove the GearmanStamp as that would be extraneous information for the receiver.
-        $encodedMessage = $this->serializer->encode($envelope->withoutStampsOfType(GearmanStamp::class));
+        $encodedMessage = $this->serializer->encode($envelope);
 
         $this->connection->send($gearmanStamp->getFunction(), $encodedMessage['body'], $encodedMessage['headers'] ?? []);
 

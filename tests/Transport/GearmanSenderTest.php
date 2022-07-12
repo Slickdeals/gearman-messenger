@@ -31,9 +31,8 @@ class GearmanSenderTest extends TestCase
             $connection = $this->createMock(Connection::class),
             $serializer = $this->createMock(SerializerInterface::class)
         );
-        $envelopeWithoutDestination = $envelope->withoutStampsOfType(GearmanStamp::class);
 
-        $serializer->method('encode')->with($envelopeWithoutDestination)->willReturn(['body' => 'serialized-body']);
+        $serializer->method('encode')->with($envelope)->willReturn(['body' => 'serialized-body']);
         $connection->method('send')->with('my-function', 'serialized-body', []);
 
         $this->assertSame($envelope, $sender->send($envelope));
